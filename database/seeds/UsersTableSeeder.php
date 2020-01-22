@@ -17,5 +17,21 @@ class UsersTableSeeder extends Seeder
             'email'      => 'admin@admin.com',
             'password'   => bcrypt('admin'),
         ]);
+
+        $request_approver = \App\Models\User::firstOrCreate(['email' => 'requests@hg.com'], [
+            'first_name' => 'requests',
+            'last_name'  => 'hg',
+            'email'      => 'requests@hg.com',
+            'password'   => bcrypt('admin'),
+        ]);
+
+        $request_approver->assign('slack_approver');
+
+        $request_approver->settings()->firstOrCreate([
+            'key' => 'slack_hook',
+        ],[
+            'key' => 'slack_hook',
+            'value' => 'asdasdasdasdas',
+        ]);
     }
 }

@@ -12,6 +12,7 @@
         "intervention/image": "^2.5",
         "laravel/framework": "^6.0",
         "laravel/helpers": "^1.1",
+        "laravel/slack-notification-channel": "^2.0",
         "laravel/tinker": "^1.0",
         "spatie/laravel-google-calendar": "^2.3"
     },

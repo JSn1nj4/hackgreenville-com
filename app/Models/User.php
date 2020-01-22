@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Silber\Bouncer\Database\HasRolesAndAbilities;
 
 /**
  * @property string name
@@ -13,7 +14,7 @@ use Illuminate\Notifications\Notifiable;
  */
 class User extends Authenticatable
 {
-    use Notifiable, SoftDeletes;
+    use Notifiable, SoftDeletes, HasRolesAndAbilities;
 
     /**
      * The attributes that are mass assignable.
@@ -42,5 +43,15 @@ class User extends Authenticatable
     public function getNameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";
+    }
+
+    public function routeNotificationForSlack()
+    {
+        return $this->settigns()->where('slack_hook')->first()->value;
+    }
+
+    public function settings()
+    {
+        return $this->morphMany(Setting::class, 'settingable');
     }
 }
